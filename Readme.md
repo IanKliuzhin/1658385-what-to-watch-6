@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ян Клюжин](https://up.htmlacademy.ru/react/6/user/1658385).
-* Наставник: `Неизвестно`.
+* Наставник: [Алексей Овчинников](https://htmlacademy.ru/profile/id193375).
 
 ---
 
