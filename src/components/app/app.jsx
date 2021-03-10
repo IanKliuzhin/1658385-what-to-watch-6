@@ -7,6 +7,7 @@ import MyList from '../my-list/my-list';
 import MovieCard from '../movie-card/movie-card';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
+import PageNotFound from '../page-not-found/page-not-found';
 
 const App = (props) => {
   return <BrowserRouter>
@@ -28,6 +29,9 @@ const App = (props) => {
       </Route>
       <Route exact path="/player/:id">
         <Player />
+      </Route>
+      <Route>
+        <PageNotFound />
       </Route>
     </Switch>
   </BrowserRouter>;
