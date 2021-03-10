@@ -91,3 +91,5 @@ export const AddReview = () => {
     </section>
   );
 };
+
+export default AddReview;

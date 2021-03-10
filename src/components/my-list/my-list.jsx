@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const MyList = () => {
+const MyList = () => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -126,3 +126,5 @@ export const MyList = () => {
     </div>
   );
 };
+
+export default MyList;
