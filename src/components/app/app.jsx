@@ -8,12 +8,13 @@ import MovieCard from '../movie-card/movie-card';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
+import {filmsType} from '../../types';
 
-const App = (props) => {
+const App = ({promoMovieId, films}) => {
   return <BrowserRouter>
     <Switch>
       <Route exact path="/">
-        <Main promoMovieInfo={props.promoMovieInfo} />
+        <Main promoMovieId={promoMovieId} films={films} />
       </Route>
       <Route exact path="/login">
         <SignIn />
@@ -38,12 +39,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  promoMovieInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    meta: PropTypes.shape({
-      genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired
-    })
-  })
+  promoMovieId: PropTypes.string.isRequired,
+  films: filmsType
 };
 export default App;

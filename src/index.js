@@ -1,16 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import films from './mocks/films';
 
-const PROMO_MOVIE_INFO = {
-  title: `The Grand Budapest Hotel`,
-  meta: {
-    genre: `Drama`,
-    year: 2014
-  }
-};
+const PROMO_MOVIE_ID = `gb`;
 
 ReactDOM.render(
-    <App promoMovieInfo={PROMO_MOVIE_INFO} />,
+    <App promoMovieId={PROMO_MOVIE_ID} films={films} />,
     document.querySelector(`#root`)
 );

@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SmallMovieCard from '../small-movie-card/small-movie-card';
+import {filmsType} from '../../types';
 
-const INIT_CARDS_AMOUNT = 20;
-
-const Main = (props) => {
-  const {promoMovieInfo} = props;
-  const {title, meta} = promoMovieInfo;
-  const {genre, year} = meta;
+const Main = ({promoMovieId, films}) => {
+  const promoFilm = films.find((film) => film.id === promoMovieId);
+  const {title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
   return (
     <>
       <section className="movie-card">
@@ -40,10 +38,10 @@ const Main = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{promoTitle}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__genre">{promoGenre}</span>
+                <span className="movie-card__year">{promoYear}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -103,7 +101,7 @@ const Main = (props) => {
           </ul>
 
           <div className="catalog__movies-list">
-            {new Array(INIT_CARDS_AMOUNT).fill().map((_, index) => <SmallMovieCard key={`card-${index}`} />)}
+            {films.map((_, index) => <SmallMovieCard key={`card-${index}`} />)}
           </div>
 
           <div className="catalog__more">
@@ -130,13 +128,8 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  promoMovieInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    meta: PropTypes.shape({
-      genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired
-    })
-  })
+  promoMovieId: PropTypes.string.isRequired,
+  films: filmsType
 };
 
 export default Main;
