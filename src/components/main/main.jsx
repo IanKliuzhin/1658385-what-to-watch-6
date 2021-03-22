@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SmallMovieCard from '../small-movie-card/small-movie-card';
 import {filmsType} from '../../types';
+import MoviesList from '../movies-list/movies-list';
 
 const Main = ({promoMovieId, films}) => {
   const promoFilm = films.find((film) => film.id === promoMovieId);
@@ -100,9 +100,7 @@ const Main = ({promoMovieId, films}) => {
             </li>
           </ul>
 
-          <div className="catalog__movies-list">
-            {films.map((_, index) => <SmallMovieCard key={`card-${index}`} />)}
-          </div>
+          <MoviesList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
