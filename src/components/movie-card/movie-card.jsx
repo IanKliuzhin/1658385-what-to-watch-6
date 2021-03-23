@@ -1,9 +1,10 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {filmsType} from '../../types';
 import MoviesList from '../movies-list/movies-list';
 
 export const MovieCard = ({films}) => {
+  const history = useHistory();
   const {id} = useParams();
   const film = films.find((filmToCheck) => filmToCheck.id === id);
   const {title, bg, genre, year, poster, rating, description, relatedIds} = film;
@@ -44,7 +45,7 @@ export const MovieCard = ({films}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -56,7 +57,7 @@ export const MovieCard = ({films}) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                <a href={`/films/${id}/review`} className="btn movie-card__button">Add review</a>
               </div>
             </div>
           </div>

@@ -1,8 +1,9 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import {filmsType} from '../../types';
 
 const Player = ({films}) => {
+  const history = useHistory();
   const {id} = useParams();
   const film = films.find((filmToCheck) => filmToCheck.id === id);
   const {title} = film;
@@ -11,7 +12,7 @@ const Player = ({films}) => {
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit" onClick={() => history.push(`/films/${id}`)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">

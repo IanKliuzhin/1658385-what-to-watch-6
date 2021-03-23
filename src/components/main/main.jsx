@@ -1,11 +1,13 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 import {filmsType} from '../../types';
 import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
 
 const Main = ({films}) => {
+  const history = useHistory();
   const promoFilm = films.find((film) => film.id === PROMO_MOVIE_ID);
-  const {title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
+  const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
   return (
     <>
       <section className="movie-card">
@@ -45,7 +47,7 @@ const Main = ({films}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${promoId}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
