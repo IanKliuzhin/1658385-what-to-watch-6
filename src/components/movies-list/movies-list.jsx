@@ -6,7 +6,7 @@ const MoviesList = ({films}) => {
   const [activeFilmId, setActiveFilmId] = useState(``);
   return (
     <div className="catalog__movies-list">
-      {films.map((film) => <SmallMovieCard film={film} key={film.id} setActive={() => setActiveFilmId(film.id)} />)}
+      {films.map((film) => <SmallMovieCard film={film} key={film.id} setActive={() => setActiveFilmId(film.id)} activeFilmId={activeFilmId} />)}
     </div>
   );
 };
