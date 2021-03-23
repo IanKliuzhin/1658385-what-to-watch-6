@@ -29,7 +29,7 @@ const App = ({films, favoriteIds}) => {
         <MovieCard films={films} />
       </Route>
       <Route exact path="/player/:id">
-        <Player />
+        <Player films={films} />
       </Route>
       <Route>
         <PageNotFound />

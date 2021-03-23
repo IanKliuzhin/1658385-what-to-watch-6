@@ -1,6 +1,12 @@
 import React from 'react';
+import {useParams} from 'react-router-dom';
+import {filmsType} from '../../types';
 
-const Player = () => {
+const Player = ({films}) => {
+  const {id} = useParams();
+  const film = films.find((filmToCheck) => filmToCheck.id === id);
+  const {title} = film;
+
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
@@ -23,7 +29,7 @@ const Player = () => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{title}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -35,6 +41,10 @@ const Player = () => {
       </div>
     </div>
   );
+};
+
+Player.propTypes = {
+  films: filmsType
 };
 
 export default Player;
