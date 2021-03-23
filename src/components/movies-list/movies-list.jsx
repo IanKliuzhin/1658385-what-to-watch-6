@@ -5,7 +5,7 @@ import {filmsType} from '../../types';
 const MoviesList = ({films}) => {
   return (
     <div className="catalog__movies-list">
-      {films.map((_, index) => <SmallMovieCard key={`card-${index}`} />)}
+      {films.map((film) => <SmallMovieCard film={film} key={film.id} />)}
     </div>
   );
 };
