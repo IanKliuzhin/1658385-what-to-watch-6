@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
@@ -10,12 +9,12 @@ import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
 import {filmsType, favoriteIdsType} from '../../types';
 
-const App = ({promoMovieId, films, favoriteIds}) => {
+const App = ({films, favoriteIds}) => {
   const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
   return <BrowserRouter>
     <Switch>
       <Route exact path="/">
-        <Main promoMovieId={promoMovieId} films={films} />
+        <Main films={films} />
       </Route>
       <Route exact path="/login">
         <SignIn />
@@ -40,7 +39,6 @@ const App = ({promoMovieId, films, favoriteIds}) => {
 };
 
 App.propTypes = {
-  promoMovieId: PropTypes.string.isRequired,
   films: filmsType,
   favoriteIds: favoriteIdsType
 };

@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {filmsType} from '../../types';
+import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
 
-const Main = ({promoMovieId, films}) => {
-  const promoFilm = films.find((film) => film.id === promoMovieId);
+const Main = ({films}) => {
+  const promoFilm = films.find((film) => film.id === PROMO_MOVIE_ID);
   const {title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
   return (
     <>
@@ -126,7 +126,6 @@ const Main = ({promoMovieId, films}) => {
 };
 
 Main.propTypes = {
-  promoMovieId: PropTypes.string.isRequired,
   films: filmsType
 };
 
