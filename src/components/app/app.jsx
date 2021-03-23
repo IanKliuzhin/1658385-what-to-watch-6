@@ -23,7 +23,7 @@ const App = ({films, favoriteIds}) => {
         <MyList films={favorites} />
       </Route>
       <Route exact path="/films/:id/review">
-        <AddReview />
+        <AddReview films={films} />
       </Route>
       <Route exact path="/films/:id">
         <MovieCard films={films} />

@@ -1,11 +1,17 @@
 import React from 'react';
+import {useParams} from 'react-router-dom';
+import {filmsType} from '../../types';
 
-export const AddReview = () => {
+export const AddReview = ({films}) => {
+  const {id} = useParams();
+  const film = films.find((filmToCheck) => filmToCheck.id === id);
+  const {title, bg, poster} = film;
+
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={`img/${bg}.jpg`} alt={title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -22,7 +28,7 @@ export const AddReview = () => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <a href="movie-page.html" className="breadcrumbs__link">{title}</a>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -38,7 +44,7 @@ export const AddReview = () => {
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={`img/${poster}.jpg`} alt={`${title} poster`} width="218" height="327" />
         </div>
       </div>
 
@@ -52,7 +58,7 @@ export const AddReview = () => {
               <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
               <label className="rating__label" htmlFor="star-2">Rating 2</label>
 
-              <input className="rating__input" id="star-3" type="radio" name="rating" value="3" checked />
+              <input className="rating__input" id="star-3" type="radio" name="rating" value="3" />
               <label className="rating__label" htmlFor="star-3">Rating 3</label>
 
               <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
@@ -61,13 +67,13 @@ export const AddReview = () => {
               <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
               <label className="rating__label" htmlFor="star-5">Rating 5</label>
 
-              <input className="rating__input" id="star-6" type="radio" name="rating" value="6"/>
+              <input className="rating__input" id="star-6" type="radio" name="rating" value="6" defaultChecked/>
               <label className="rating__label" htmlFor="star-6">Rating 6</label>
 
               <input className="rating__input" id="star-7" type="radio" name="rating" value="7" />
               <label className="rating__label" htmlFor="star-7">Rating 7</label>
 
-              <input className="rating__input" id="star-8" type="radio" name="rating" value="8" checked />
+              <input className="rating__input" id="star-8" type="radio" name="rating" value="8" />
               <label className="rating__label" htmlFor="star-8">Rating 8</label>
 
               <input className="rating__input" id="star-9" type="radio" name="rating" value="9" />
@@ -90,6 +96,10 @@ export const AddReview = () => {
 
     </section>
   );
+};
+
+AddReview.propTypes = {
+  films: filmsType
 };
 
 export default AddReview;
