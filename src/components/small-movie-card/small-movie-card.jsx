@@ -1,16 +1,26 @@
 import React from 'react';
+import {filmType} from '../../types';
+import {useHistory} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const SmallMovieCard = () => {
+const SmallMovieCard = ({film, setActive}) => {
+  const {id, title, bg} = film;
+  const history = useHistory();
   return (
-    <article className="small-movie-card catalog__movies-card">
+    <article className="small-movie-card catalog__movies-card" onClick={() => history.push(`/films/${id}`)} onMouseEnter={setActive}>
       <div className="small-movie-card__image">
-        <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
+        <img src={`img/${bg}.jpg`} alt={title} width="280" height="175" />
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
+        <a className="small-movie-card__link" href={`/films/${id}`}>{title}</a>
       </h3>
     </article>
   );
+};
+
+SmallMovieCard.propTypes = {
+  film: filmType,
+  setActive: PropTypes.func.isRequired,
 };
 
 export default SmallMovieCard;

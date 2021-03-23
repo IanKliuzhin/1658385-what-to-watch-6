@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
@@ -8,27 +7,29 @@ import MovieCard from '../movie-card/movie-card';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
+import {filmsType, favoriteIdsType} from '../../types';
 
-const App = (props) => {
+const App = ({films, favoriteIds}) => {
+  const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
   return <BrowserRouter>
     <Switch>
       <Route exact path="/">
-        <Main promoMovieInfo={props.promoMovieInfo} />
+        <Main films={films} />
       </Route>
       <Route exact path="/login">
         <SignIn />
       </Route>
       <Route exact path="/mylist">
-        <MyList />
+        <MyList films={favorites} />
       </Route>
       <Route exact path="/films/:id/review">
-        <AddReview />
+        <AddReview films={films} />
       </Route>
       <Route exact path="/films/:id">
-        <MovieCard />
+        <MovieCard films={films} />
       </Route>
       <Route exact path="/player/:id">
-        <Player />
+        <Player films={films} />
       </Route>
       <Route>
         <PageNotFound />
@@ -38,12 +39,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  promoMovieInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    meta: PropTypes.shape({
-      genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired
-    })
-  })
+  films: filmsType,
+  favoriteIds: favoriteIdsType
 };
 export default App;

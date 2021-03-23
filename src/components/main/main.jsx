@@ -1,18 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import SmallMovieCard from '../small-movie-card/small-movie-card';
+import {useHistory} from 'react-router-dom';
+import {filmsType} from '../../types';
+import {PROMO_MOVIE_ID} from '../../const';
+import MoviesList from '../movies-list/movies-list';
 
-const INIT_CARDS_AMOUNT = 20;
-
-const Main = (props) => {
-  const {promoMovieInfo} = props;
-  const {title, meta} = promoMovieInfo;
-  const {genre, year} = meta;
+const Main = ({films}) => {
+  const history = useHistory();
+  const promoFilm = films.find((film) => film.id === PROMO_MOVIE_ID);
+  const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
   return (
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={`img/${promoFilm.bg}.jpg`} alt={promoFilm.title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -36,18 +36,18 @@ const Main = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={`img/${promoFilm.poster}.jpg`} alt={`${promoFilm.title} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{promoTitle}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__genre">{promoGenre}</span>
+                <span className="movie-card__year">{promoYear}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${promoId}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -102,9 +102,7 @@ const Main = (props) => {
             </li>
           </ul>
 
-          <div className="catalog__movies-list">
-            {new Array(INIT_CARDS_AMOUNT).fill().map((_, index) => <SmallMovieCard key={`card-${index}`} />)}
-          </div>
+          <MoviesList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -130,13 +128,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  promoMovieInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    meta: PropTypes.shape({
-      genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired
-    })
-  })
+  films: filmsType
 };
 
 export default Main;

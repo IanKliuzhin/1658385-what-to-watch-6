@@ -1,11 +1,18 @@
 import React from 'react';
+import {useParams, useHistory} from 'react-router-dom';
+import {filmsType} from '../../types';
 
-const Player = () => {
+const Player = ({films}) => {
+  const history = useHistory();
+  const {id} = useParams();
+  const film = films.find((filmToCheck) => filmToCheck.id === id);
+  const {title} = film;
+
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit" onClick={() => history.push(`/films/${id}`)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -23,7 +30,7 @@ const Player = () => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{title}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -35,6 +42,10 @@ const Player = () => {
       </div>
     </div>
   );
+};
+
+Player.propTypes = {
+  films: filmsType
 };
 
 export default Player;
