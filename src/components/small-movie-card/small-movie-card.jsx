@@ -1,12 +1,13 @@
 import React from 'react';
 import {filmType} from '../../types';
 import {useHistory} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const SmallMovieCard = ({film}) => {
+const SmallMovieCard = ({film, setActive}) => {
   const {id, title, bg} = film;
   const history = useHistory();
   return (
-    <article className="small-movie-card catalog__movies-card" onClick={() => history.push(`/films/${id}`)}>
+    <article className="small-movie-card catalog__movies-card" onClick={() => history.push(`/films/${id}`)} onMouseEnter={setActive}>
       <div className="small-movie-card__image">
         <img src={`img/${bg}.jpg`} alt={title} width="280" height="175" />
       </div>
@@ -18,7 +19,8 @@ const SmallMovieCard = ({film}) => {
 };
 
 SmallMovieCard.propTypes = {
-  film: filmType
+  film: filmType,
+  setActive: PropTypes.func.isRequired,
 };
 
 export default SmallMovieCard;
