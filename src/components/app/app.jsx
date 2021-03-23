@@ -8,9 +8,10 @@ import MovieCard from '../movie-card/movie-card';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
-import {filmsType} from '../../types';
+import {filmsType, favoriteIdsType} from '../../types';
 
-const App = ({promoMovieId, films}) => {
+const App = ({promoMovieId, films, favoriteIds}) => {
+  const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
   return <BrowserRouter>
     <Switch>
       <Route exact path="/">
@@ -20,7 +21,7 @@ const App = ({promoMovieId, films}) => {
         <SignIn />
       </Route>
       <Route exact path="/mylist">
-        <MyList />
+        <MyList films={favorites} />
       </Route>
       <Route exact path="/films/:id/review">
         <AddReview />
@@ -40,6 +41,7 @@ const App = ({promoMovieId, films}) => {
 
 App.propTypes = {
   promoMovieId: PropTypes.string.isRequired,
-  films: filmsType
+  films: filmsType,
+  favoriteIds: favoriteIdsType
 };
 export default App;
