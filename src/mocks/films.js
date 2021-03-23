@@ -14,7 +14,7 @@ export default [
       level: `Very good`,
       amount: 240,
     },
-    related: [`je`, `av`, `dl`],
+    relatedIds: [`je`, `av`, `dl`],
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
@@ -32,7 +32,7 @@ export default [
       level: `Very good`,
       amount: 240,
     },
-    related: [`br`, `je`, `dl`],
+    relatedIds: [`br`, `je`, `dl`],
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
@@ -50,7 +50,7 @@ export default [
       level: `Very good`,
       amount: 240,
     },
-    related: [`br`, `av`, `je`],
+    relatedIds: [`br`, `av`, `je`],
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
@@ -68,7 +68,7 @@ export default [
       level: `Very good`,
       amount: 240,
     },
-    related: [`br`, `av`, `dl`],
+    relatedIds: [`br`, `av`, `dl`],
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
@@ -78,7 +78,7 @@ export default [
     year: 2014,
     bg: `bg-the-grand-budapest-hotel`,
     poster: `the-grand-budapest-hotel-poster`,
-    description: `description<p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&rsquo;s friend and protege.</p><p>Gustave prides himself on providing first-class service to the hotel&rsquo;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&rsquo;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>`,
+    description: `In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&rsquo;s friend and protege.\n\nGustave prides himself on providing first-class service to the hotel&rsquo;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&rsquo;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
     director: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe`,
     rating: {
@@ -86,7 +86,7 @@ export default [
       level: `Very good`,
       amount: 240,
     },
-    related: [`br`, `av`, `dl`],
+    relatedIds: [`br`, `av`, `dl`],
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
@@ -104,7 +104,7 @@ export default [
       level: `Very good`,
       amount: 240,
     },
-    related: [`br`, `av`, `dl`],
+    relatedIds: [`br`, `av`, `dl`],
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
@@ -122,7 +122,7 @@ export default [
       level: `Very good`,
       amount: 240,
     },
-    related: [`br`, `av`, `dl`],
+    relatedIds: [`br`, `av`, `dl`],
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   },
   {
@@ -140,7 +140,7 @@ export default [
       level: `Very good`,
       amount: 240,
     },
-    related: [`br`, `av`, `dl`],
+    relatedIds: [`br`, `av`, `dl`],
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
   }
 ];

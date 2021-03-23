@@ -15,7 +15,7 @@ export const filmType = PropTypes.shape({
     level: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
   }).isRequired,
-  related: PropTypes.arrayOf(PropTypes.string).isRequired,
+  relatedIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   src: PropTypes.string.isRequired
 });
 
