@@ -15,7 +15,7 @@ export default [
       amount: 240,
     },
     relatedIds: [`je`, `av`, `dl`],
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `av`,
@@ -33,7 +33,7 @@ export default [
       amount: 240,
     },
     relatedIds: [`br`, `je`, `dl`],
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `dl`,
@@ -51,7 +51,7 @@ export default [
       amount: 240,
     },
     relatedIds: [`br`, `av`, `je`],
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `je`,
@@ -69,7 +69,7 @@ export default [
       amount: 240,
     },
     relatedIds: [`br`, `av`, `dl`],
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `gb`,
@@ -87,7 +87,7 @@ export default [
       amount: 240,
     },
     relatedIds: [`br`, `av`, `dl`],
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `nc`,
@@ -105,7 +105,7 @@ export default [
       amount: 240,
     },
     relatedIds: [`br`, `av`, `dl`],
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `pf`,
@@ -123,7 +123,7 @@ export default [
       amount: 240,
     },
     relatedIds: [`br`, `av`, `dl`],
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   },
   {
     id: `sn`,
@@ -141,6 +141,6 @@ export default [
       amount: 240,
     },
     relatedIds: [`br`, `av`, `dl`],
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
   }
 ];
