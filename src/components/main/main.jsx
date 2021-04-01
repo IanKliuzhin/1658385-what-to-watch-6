@@ -4,7 +4,7 @@ import {filmsType} from '../../types';
 import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
 import {getAllGenres} from '../../helpers';
-import {GenreFilter} from '../genre-filter/genre-filter';
+import GenreFilter from '../genre-filter/genre-filter';
 
 const Main = ({films}) => {
   const history = useHistory();

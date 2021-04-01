@@ -10,7 +10,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_GENRE:
       return {
         ...state,
-        genre: action.payload
+        currentGenre: action.payload
       };
     case ActionType.SET_FILMS:
       return {
