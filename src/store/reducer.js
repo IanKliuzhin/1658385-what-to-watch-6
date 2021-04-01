@@ -1,7 +1,7 @@
 import {ActionType} from "./action";
 
 const initialState = {
-  currentGenre: `all`,
+  currentGenre: ``,
   films: []
 };
 
