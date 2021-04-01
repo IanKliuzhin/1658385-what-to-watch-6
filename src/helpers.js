@@ -4,3 +4,7 @@ export const getAllGenres = (films) => {
   );
   return [``, ...new Set(genresWithRepeats)];
 };
+
+export const getFilmsByGenre = (films, genre) => films.filter(
+    (film) => !genre || film.genre.split(`, `).includes(genre));
+

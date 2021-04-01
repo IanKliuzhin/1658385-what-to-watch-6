@@ -3,14 +3,17 @@ import {useHistory} from 'react-router-dom';
 import {filmsType} from '../../types';
 import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
-import {getAllGenres} from '../../helpers';
+import {getAllGenres, getFilmsByGenre} from '../../helpers';
 import GenreFilter from '../genre-filter/genre-filter';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-const Main = ({films}) => {
+const Main = ({films, currentGenre}) => {
   const history = useHistory();
   const promoFilm = films.find((film) => film.id === PROMO_MOVIE_ID);
   const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
   const genres = getAllGenres(films);
+  const filteredFilms = getFilmsByGenre(films, currentGenre);
 
   return (
     <>
@@ -75,7 +78,7 @@ const Main = ({films}) => {
 
           <GenreFilter genres={genres} />
 
-          <MoviesList films={films} />
+          <MoviesList films={filteredFilms} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -101,7 +104,12 @@ const Main = ({films}) => {
 };
 
 Main.propTypes = {
-  films: filmsType
+  films: filmsType,
+  currentGenre: PropTypes.string.isRequired
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  currentGenre: state.currentGenre
+});
+
+export default connect(mapStateToProps, null)(Main);
