@@ -38,7 +38,7 @@ export default [
   {
     id: `dl`,
     title: `Dardjeeling Limited`,
-    genre: `Comedy Drama`,
+    genre: `Comedy, Drama`,
     year: 2007,
     bg: `dardjeeling-limited`,
     poster: `the-grand-budapest-hotel-poster`,
@@ -56,7 +56,7 @@ export default [
   {
     id: `je`,
     title: `Johnny English`,
-    genre: `Spy Action Comedy`,
+    genre: `Spy, Action, Comedy`,
     year: 2018,
     bg: `johnny-english`,
     poster: `the-grand-budapest-hotel-poster`,
@@ -92,7 +92,7 @@ export default [
   {
     id: `nc`,
     title: `No Country for Old Men`,
-    genre: `Neo-Western Crime Thriller`,
+    genre: `Neo-Western, Crime, Thriller`,
     year: 2007,
     bg: `no-country-for-old-men`,
     poster: `the-grand-budapest-hotel-poster`,
@@ -110,7 +110,7 @@ export default [
   {
     id: `pf`,
     title: `Pulp Fiction`,
-    genre: `Neo-noir Black Comedy Crime`,
+    genre: `Neo-noir, Black Comedy, Crime`,
     year: 1994,
     bg: `pulp-fiction`,
     poster: `the-grand-budapest-hotel-poster`,
@@ -128,7 +128,7 @@ export default [
   {
     id: `sn`,
     title: `Snatch`,
-    genre: `Crime Comedy`,
+    genre: `Crime, Comedy`,
     year: 2000,
     bg: `snatch`,
     poster: `the-grand-budapest-hotel-poster`,

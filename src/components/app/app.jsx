@@ -8,6 +8,7 @@ import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
 import {filmsType, favoriteIdsType} from '../../types';
+import {connect} from 'react-redux';
 
 const App = ({films, favoriteIds}) => {
   const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
@@ -42,4 +43,9 @@ App.propTypes = {
   films: filmsType,
   favoriteIds: favoriteIdsType
 };
-export default App;
+
+const mapStateToProps = (state) => ({
+  films: state.films
+});
+
+export default connect(mapStateToProps, null)(App);
