@@ -16,23 +16,25 @@ const App = ({films, favoriteIds, isLoadingFilms}) => {
   const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
   return <BrowserRouter>
     <Switch>
-      <Route exact path="/">
-        {isLoadingFilms ? <LoadingScreen /> : <Main films={films} />}
-      </Route>
+      {isLoadingFilms ? <LoadingScreen /> : <>
+        <Route exact path="/">
+          <Main films={films} />
+        </Route>
+        <Route exact path="/mylist">
+          <MyList films={favorites} />
+        </Route>
+        <Route exact path="/films/:id/review">
+          <AddReview films={films} />
+        </Route>
+        <Route exact path="/films/:id">
+          <MovieCard films={films} />
+        </Route>
+        <Route exact path="/player/:id">
+          <Player films={films} />
+        </Route>
+      </>}
       <Route exact path="/login">
         <SignIn />
-      </Route>
-      <Route exact path="/mylist">
-        {isLoadingFilms ? <LoadingScreen /> : <MyList films={favorites} />}
-      </Route>
-      <Route exact path="/films/:id/review">
-        {isLoadingFilms ? <LoadingScreen /> : <AddReview films={films} />}
-      </Route>
-      <Route exact path="/films/:id">
-        {isLoadingFilms ? <LoadingScreen /> : <MovieCard films={films} />}
-      </Route>
-      <Route exact path="/player/:id">
-        {isLoadingFilms ? <LoadingScreen /> : <Player films={films} />}
       </Route>
       <Route>
         <PageNotFound />
