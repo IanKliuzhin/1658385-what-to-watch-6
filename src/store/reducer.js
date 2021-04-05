@@ -2,7 +2,8 @@ import {ActionType} from "./action";
 
 const initialState = {
   currentGenre: ``,
-  films: []
+  films: [],
+  isLoadingFilms: true
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         films: action.payload
+      };
+    case ActionType.SET_IS_LOADING_FILMS:
+      return {
+        ...state,
+        isLoadingFilms: action.payload
       };
     default:
       return state;
