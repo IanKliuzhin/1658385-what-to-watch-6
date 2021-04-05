@@ -13,6 +13,7 @@
     "@babel/core": "7.12.17",
     "@babel/preset-env": "7.12.17",
     "@babel/preset-react": "7.12.13",
+    "axios": "0.21.1",
     "babel-loader": "8.2.2",
     "eslint": "7.18.0",
     "eslint-config-htmlacademy": "2.1.0",
@@ -23,6 +24,7 @@
     "react-redux": "7.2.3",
     "redux": "4.0.5",
     "redux-devtools-extension": "2.13.9",
+    "redux-thunk": "2.3.0",
     "webpack-dev-server": "3.11.2"
   },
   "engines": {

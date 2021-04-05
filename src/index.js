@@ -3,11 +3,24 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import favorites from './mocks/my-films';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {reducer} from './store/reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import {createAPI} from './services/api';
+import thunk from 'redux-thunk';
+import {fetchFilms} from './store/api-actions';
 
-const store = createStore(reducer, composeWithDevTools());
+
+const api = createAPI();
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(
+        applyMiddleware(thunk.withExtraArgument(api)
+        )
+    ));
+
+store.dispatch(fetchFilms());
 
 ReactDOM.render(
     <Provider store={store}>

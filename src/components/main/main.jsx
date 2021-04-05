@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 
 const Main = ({films, currentGenre}) => {
   const history = useHistory();
-  const promoFilm = films.find((film) => film.id === PROMO_MOVIE_ID);
+  const promoFilm = films.length > 0 ? films.find((film) => film.id === PROMO_MOVIE_ID) : {};
   const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
   const genres = getAllGenres(films);
   const filteredFilms = getFilmsByGenre(films, currentGenre);
@@ -19,7 +19,7 @@ const Main = ({films, currentGenre}) => {
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src={`img/${promoFilm.bg}.jpg`} alt={promoFilm.title} />
+          <img src={promoFilm.bg} alt={promoFilm.title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -43,7 +43,7 @@ const Main = ({films, currentGenre}) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src={`img/${promoFilm.poster}.jpg`} alt={`${promoFilm.title} poster`} width="218" height="327" />
+              <img src={promoFilm.poster} alt={`${promoFilm.title} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">

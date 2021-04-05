@@ -6,16 +6,16 @@ import MoviesList from '../movies-list/movies-list';
 export const MovieCard = ({films}) => {
   const history = useHistory();
   const {id} = useParams();
-  const film = films.find((filmToCheck) => filmToCheck.id === id);
+  const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
   const {title, bg, genre, year, poster, rating, description, relatedIds} = film;
-  const {rate, level, amount} = rating;
-  const relatedFilms = relatedIds.map((relatedId) => films.find((filmToCheck) => filmToCheck.id === relatedId));
+  const {rate, level, amount} = rating || {};
+  const relatedFilms = relatedIds && relatedIds.length ? relatedIds.map((relatedId) => films.find((filmToCheck) => filmToCheck.id === relatedId)) : [];
   return (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={`img/${bg}.jpg`} alt={title} />
+            <img src={bg} alt={title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -66,7 +66,7 @@ export const MovieCard = ({films}) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={`img/${poster}.jpg`} alt={`${title} poster`} width="218" height="327" />
+              <img src={poster} alt={`${title} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
