@@ -10,3 +10,15 @@ export const fetchFilms = () => (dispatch, _getState, api) => {
       dispatch(ActionCreator.setIsLoadingFilms(false));
     });
 };
+
+export const login = (email, password) => (dispatch, _getState, api) => {
+  api.post(APIRoute.LOGIN, {email, password})
+    .then(() => dispatch(ActionCreator.setAuthorizationStatus(true)))
+    .catch(() => {});
+};
+
+export const checkAuth = () => (dispatch, _getState, api) => {
+  api.get(APIRoute.LOGIN)
+    .then(() => dispatch(ActionCreator.setAuthorizationStatus(true)))
+    .catch(() => {});
+};

@@ -8,10 +8,13 @@ import {reducer} from './store/reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {createAPI} from './services/api';
 import thunk from 'redux-thunk';
-import {fetchFilms} from './store/api-actions';
+import {fetchFilms, checkAuth} from './store/api-actions';
+import {ActionCreator} from './store/action';
 
 
-const api = createAPI();
+const api = createAPI(
+    () => store.dispatch(ActionCreator.setAuthorizationStatus(false))
+);
 
 const store = createStore(
     reducer,
@@ -21,6 +24,7 @@ const store = createStore(
     ));
 
 store.dispatch(fetchFilms());
+store.dispatch(checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
