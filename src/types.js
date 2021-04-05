@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const filmType = PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
@@ -11,11 +11,11 @@ export const filmType = PropTypes.shape({
   director: PropTypes.string.isRequired,
   starring: PropTypes.string.isRequired,
   rating: PropTypes.shape({
-    rate: PropTypes.string.isRequired,
+    rate: PropTypes.number.isRequired,
     level: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
   }).isRequired,
-  relatedIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  relatedIds: PropTypes.arrayOf(PropTypes.string),
   src: PropTypes.string.isRequired
 });
 

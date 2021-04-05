@@ -12,7 +12,7 @@ export const AddReview = ({films}) => {
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src={`img/${bg}.jpg`} alt={title} />
+          <img src={bg} alt={title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -45,7 +45,7 @@ export const AddReview = ({films}) => {
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src={`img/${poster}.jpg`} alt={`${title} poster`} width="218" height="327" />
+          <img src={poster} alt={`${title} poster`} width="218" height="327" />
         </div>
       </div>
 

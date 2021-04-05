@@ -5,7 +5,7 @@ import {filmsType} from '../../types';
 const Player = ({films}) => {
   const history = useHistory();
   const {id} = useParams();
-  const film = films.find((filmToCheck) => filmToCheck.id === id);
+  const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
   const {title} = film;
 
   return (
