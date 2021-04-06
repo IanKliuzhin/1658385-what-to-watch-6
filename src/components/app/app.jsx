@@ -11,6 +11,7 @@ import {filmsType, favoriteIdsType} from '../../types';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen';
+import PrivateRoute from '../private-route/private-route';
 
 const App = ({films, favoriteIds, isLoadingFilms}) => {
   const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
@@ -20,12 +21,16 @@ const App = ({films, favoriteIds, isLoadingFilms}) => {
         <Route exact path="/">
           <Main films={films} />
         </Route>
-        <Route exact path="/mylist">
-          <MyList films={favorites} />
-        </Route>
-        <Route exact path="/films/:id/review">
-          <AddReview films={films} />
-        </Route>
+        <PrivateRoute
+          exact
+          path="/mylist"
+          render={() => <MyList films={favorites} />}
+        />
+        <PrivateRoute
+          exact
+          path="/films/:id/review"
+          render={() => <AddReview films={films} />}
+        />
         <Route exact path="/films/:id">
           <MovieCard films={films} />
         </Route>
