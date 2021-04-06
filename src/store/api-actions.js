@@ -11,7 +11,7 @@ export const fetchFilms = () => (dispatch, _getState, api) => {
     });
 };
 
-export const login = (email, password) => (dispatch, _getState, api) => {
+export const login = ({email, password}) => (dispatch, _getState, api) => {
   api.post(APIRoute.LOGIN, {email, password})
     .then(() => dispatch(ActionCreator.setAuthorizationStatus(true)))
     .catch(() => {});
