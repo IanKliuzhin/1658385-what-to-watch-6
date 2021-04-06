@@ -1,14 +1,14 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 import {filmsType} from '../../types';
-import {PROMO_MOVIE_ID} from '../../const';
+import {PROMO_MOVIE_ID, AuthorizationStatus} from '../../const';
 import MoviesList from '../movies-list/movies-list';
 import {getAllGenres, getFilmsByGenre} from '../../helpers';
 import GenreFilter from '../genre-filter/genre-filter';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-const Main = ({films, currentGenre}) => {
+const Main = ({films, currentGenre, authorizationStatus}) => {
   const history = useHistory();
   const promoFilm = films.length > 0 ? films.find((film) => film.id === PROMO_MOVIE_ID) : {};
   const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
@@ -34,9 +34,13 @@ const Main = ({films, currentGenre}) => {
           </div>
 
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
+            {authorizationStatus === AuthorizationStatus.AUTH ?
+              <div className="user-block__avatar" onClick={() => history.push(`/mylist`)}>
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              </div>
+              :
+              <a href={`/login`} className="user-block__link">Sign in</a>
+            }
           </div>
         </header>
 
@@ -54,7 +58,7 @@ const Main = ({films, currentGenre}) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${promoId}`)}>
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => () => .push(`/player/${promoId}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -105,11 +109,13 @@ const Main = ({films, currentGenre}) => {
 
 Main.propTypes = {
   films: filmsType,
-  currentGenre: PropTypes.string.isRequired
+  currentGenre: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre
+  currentGenre: state.currentGenre,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export default connect(mapStateToProps, null)(Main);
