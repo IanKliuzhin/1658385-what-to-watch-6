@@ -16,8 +16,8 @@ import PrivateRoute from '../private-route/private-route';
 const App = ({films, favoriteIds, isLoadingFilms}) => {
   const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
   return <BrowserRouter>
-    <Switch>
-      {isLoadingFilms ? <LoadingScreen /> : <>
+    {isLoadingFilms ? <LoadingScreen /> :
+      <Switch>
         <Route exact path="/">
           <Main films={films} />
         </Route>
@@ -37,14 +37,14 @@ const App = ({films, favoriteIds, isLoadingFilms}) => {
         <Route exact path="/player/:id">
           <Player films={films} />
         </Route>
-      </>}
-      <Route exact path="/login">
-        <SignIn />
-      </Route>
-      <Route>
-        <PageNotFound />
-      </Route>
-    </Switch>
+        <Route exact path="/login">
+          <SignIn />
+        </Route>
+        <Route>
+          <PageNotFound />
+        </Route>
+      </Switch>
+    }
   </BrowserRouter>;
 };
 
