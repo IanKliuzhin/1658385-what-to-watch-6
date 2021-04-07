@@ -10,13 +10,14 @@ import MovieOverview from '../../movie-overview/movie-overview';
 import MovieDetails from '../movie-details/movie-details';
 import MovieReviews from '../movie-reviews/movie-reviews';
 import {fetchComments} from '../../store/api-actions';
+import {getRelatedFilms} from '../../helpers';
 
 export const MovieCard = () => {
   const {films} = useSelector((state) => state.CATALOG);
   const dispatch = useDispatch();
   const {id} = useParams();
   const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
-  const {title, bg, genre, released, poster, rating, description, director, starring, relatedIds, runTime, comments} = film;
+  const {title, bg, genre, released, poster, rating, description, director, starring, runTime, comments} = film;
 
   useEffect(() => {
     if (!comments) {
@@ -24,7 +25,7 @@ export const MovieCard = () => {
     }
   }, [comments, id]);
 
-  const relatedFilms = relatedIds && relatedIds.length ? relatedIds.map((relatedId) => films.find((filmToCheck) => filmToCheck.id === relatedId)) : [];
+  const relatedFilms = getRelatedFilms(films.filter((filmToCheck) => String(filmToCheck.id) !== String(id)), genre);
   const [activeTabName, setActiveTabName] = useState(TabName.OVERVIEW);
   const history = useHistory();
   const onAddReviewClick = (evt) => {
@@ -102,7 +103,9 @@ export const MovieCard = () => {
 
       <div className="page-content">
         <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
+          {relatedFilms.length > 0 &&
+            <h2 className="catalog__title">More like this</h2>
+          }
 
           <div className="catalog__movies-list">
             <MoviesList films={relatedFilms} />
