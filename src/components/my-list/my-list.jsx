@@ -1,11 +1,12 @@
 import React from 'react';
-import {filmsType, favoriteIdsType} from '../../types';
+import {favoriteIdsType} from '../../types';
 import MoviesList from '../movies-list/movies-list';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-const MyList = ({films, favoriteIds}) => {
+const MyList = ({favoriteIds}) => {
+  const {films} = useSelector((state) => state.CATALOG);
   const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
   return (
     <div className="user-page">
@@ -28,12 +29,7 @@ const MyList = ({films, favoriteIds}) => {
 };
 
 MyList.propTypes = {
-  films: filmsType,
   favoriteIds: favoriteIdsType,
 };
 
-const mapStateToProps = ({CATALOG}) => ({
-  films: CATALOG.films,
-});
-
-export default connect(mapStateToProps, null)(MyList);
+export default MyList;

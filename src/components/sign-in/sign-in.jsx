@@ -1,23 +1,23 @@
 import React, {useEffect, useRef} from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {login} from '../../store/api-actions';
-import {PropTypes} from 'prop-types';
 import {AuthorizationStatus} from '../../const';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useDispatch} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
-const SignIn = ({onSubmit, authorizationStatus}) => {
+const SignIn = () => {
+  const {authorizationStatus} = useSelector((state) => state.USER);
   const emailRef = useRef();
   const passwordRef = useRef();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    useDispatch(login({
       email: emailRef.current.value,
       password: passwordRef.current.value
-    });
+    }));
   };
 
   const history = useHistory();
@@ -57,19 +57,4 @@ const SignIn = ({onSubmit, authorizationStatus}) => {
   );
 };
 
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(email, password) {
-    dispatch(login(email, password));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

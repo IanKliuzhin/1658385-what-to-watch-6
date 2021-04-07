@@ -1,19 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {changeGenre} from '../../store/action';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
-export const GenreFilter = ({genres, currentGenre, onChangeGenre}) => {
-  const baseClass = `catalog__genres-item`;
+const BASE_CLASS = `catalog__genres-item`;
+
+export const GenreFilter = ({genres}) => {
+  const {currentGenre} = useSelector((state) => state.CATALOG);
+  const dispatch = useDispatch();
   const handleClickOnGenre = (genre) => (e) => {
     e.preventDefault();
     e.nativeEvent.preventDefault();
-    onChangeGenre(genre);
+    dispatch(changeGenre(genre));
   };
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre) => (
-        <li key={genre} className={`${baseClass} ${genre === currentGenre && `${baseClass}--active`}`}>
+        <li key={genre} className={`${BASE_CLASS} ${genre === currentGenre && `${BASE_CLASS}--active`}`}>
           <a onClick={handleClickOnGenre(genre)} href="#" className="catalog__genres-link">{genre || `All genres`}</a>
         </li>
       ))}
@@ -22,19 +25,7 @@ export const GenreFilter = ({genres, currentGenre, onChangeGenre}) => {
 };
 
 GenreFilter.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  currentGenre: PropTypes.string.isRequired,
-  onChangeGenre: PropTypes.func.isRequired
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-const mapStateToProps = ({CATALOG}) => ({
-  currentGenre: CATALOG.currentGenre
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeGenre(genre) {
-    dispatch(changeGenre(genre));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(GenreFilter);
+export default GenreFilter;

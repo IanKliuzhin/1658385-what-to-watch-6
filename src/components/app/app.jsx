@@ -8,12 +8,12 @@ import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
 import {favoriteIdsType} from '../../types';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 
-const App = ({favoriteIds, isLoadingFilms}) => {
+const App = ({favoriteIds}) => {
+  const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
   return <BrowserRouter>
     {isLoadingFilms ? <LoadingScreen /> :
       <Switch>
@@ -48,12 +48,7 @@ const App = ({favoriteIds, isLoadingFilms}) => {
 };
 
 App.propTypes = {
-  favoriteIds: favoriteIdsType,
-  isLoadingFilms: PropTypes.bool.isRequired
+  favoriteIds: favoriteIdsType
 };
 
-const mapStateToProps = ({APP_STATE}) => ({
-  isLoadingFilms: APP_STATE.isLoadingFilms
-});
-
-export default connect(mapStateToProps, null)(App);
+export default App;

@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {connect} from "react-redux";
+import {useSelector} from 'react-redux';
 import {AuthorizationStatus, APIRoute} from "../../const";
 import {Route, Redirect} from "react-router-dom";
 
-const PrivateRoute = ({path, render, exact, authorizationStatus}) => {
+const PrivateRoute = ({path, render, exact}) => {
+  const {authorizationStatus} = useSelector((state) => state.USER);
   return (
     <Route
       path={path}
@@ -21,14 +22,9 @@ const PrivateRoute = ({path, render, exact, authorizationStatus}) => {
 };
 
 PrivateRoute.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,
   exact: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-});
-
-export default connect(mapStateToProps, null)(PrivateRoute);
+export default PrivateRoute;

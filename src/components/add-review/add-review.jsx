@@ -1,12 +1,12 @@
 import React from 'react';
 import {useParams} from 'react-router-dom';
-import {filmsType} from '../../types';
 import ReviewForm from '../review-form/review-form';
 import Header from '../header/header';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-export const AddReview = ({films}) => {
+export const AddReview = () => {
   const {id} = useParams();
+  const {films} = useSelector((state) => state.CATALOG);
   const film = films.find((filmToCheck) => String(filmToCheck.id) === id);
   const {title, bg, poster} = film;
 
@@ -45,12 +45,4 @@ export const AddReview = ({films}) => {
   );
 };
 
-AddReview.propTypes = {
-  films: filmsType
-};
-
-const mapStateToProps = ({CATALOG}) => ({
-  films: CATALOG.films,
-});
-
-export default connect(mapStateToProps, null)(AddReview);
+export default AddReview;

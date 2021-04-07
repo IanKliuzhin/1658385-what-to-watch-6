@@ -1,16 +1,17 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {filmsType} from '../../types';
 import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
 import {getAllGenres, getFilmsByGenre} from '../../helpers';
 import GenreFilter from '../genre-filter/genre-filter';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-const Main = ({films, currentGenre}) => {
+
+const Main = () => {
+  const {films, currentGenre} = useSelector((state) => state.CATALOG);
+
   const history = useHistory();
   const promoFilm = films.length > 0 ? films.find((film) => film.id === PROMO_MOVIE_ID) : {};
   const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
@@ -79,14 +80,4 @@ const Main = ({films, currentGenre}) => {
   );
 };
 
-Main.propTypes = {
-  films: filmsType,
-  currentGenre: PropTypes.string.isRequired
-};
-
-const mapStateToProps = ({CATALOG}) => ({
-  films: CATALOG.films,
-  currentGenre: CATALOG.currentGenre
-});
-
-export default connect(mapStateToProps, null)(Main);
+export default Main;

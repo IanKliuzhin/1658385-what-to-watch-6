@@ -1,12 +1,12 @@
 import React from 'react';
 import {useParams, useHistory} from 'react-router-dom';
-import {filmsType} from '../../types';
 import MoviesList from '../movies-list/movies-list';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-export const MovieCard = ({films}) => {
+export const MovieCard = () => {
+  const {films} = useSelector((state) => state.CATALOG);
   const history = useHistory();
   const {id} = useParams();
   const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
@@ -109,12 +109,4 @@ export const MovieCard = ({films}) => {
   );
 };
 
-MovieCard.propTypes = {
-  films: filmsType
-};
-
-const mapStateToProps = ({CATALOG}) => ({
-  films: CATALOG.films,
-});
-
-export default connect(mapStateToProps, null)(MovieCard);
+export default MovieCard;

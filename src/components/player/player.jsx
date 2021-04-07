@@ -1,9 +1,9 @@
 import React from 'react';
 import {useParams, useHistory} from 'react-router-dom';
-import {filmsType} from '../../types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-const Player = ({films}) => {
+const Player = () => {
+  const {films} = useSelector((state) => state.CATALOG);
   const history = useHistory();
   const {id} = useParams();
   const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
@@ -45,12 +45,4 @@ const Player = ({films}) => {
   );
 };
 
-Player.propTypes = {
-  films: filmsType
-};
-
-const mapStateToProps = ({CATALOG}) => ({
-  films: CATALOG.films,
-});
-
-export default connect(mapStateToProps, null)(Player);
+export default Player;
