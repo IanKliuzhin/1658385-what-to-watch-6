@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
@@ -9,19 +9,34 @@ import Footer from '../footer/footer';
 import {useSelector} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 
+const SHOWING_PORTION_AMOUNT = 8;
+
 const Main = () => {
   const {films, currentGenre} = useSelector((state) => state.CATALOG);
   const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
+  const [maxShowingAmount, setMaxShowingAmount] = useState(SHOWING_PORTION_AMOUNT);
 
   const history = useHistory();
   const promoFilm = films.length > 0 ? films.find((film) => film.id === PROMO_MOVIE_ID) : {};
   const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
   const genres = getAllGenres(films);
   const filteredFilms = getFilmsByGenre(films, currentGenre);
+  const shownFilms = filteredFilms.slice(0, maxShowingAmount);
+
+  const handleShowMoreClick = (evt) => {
+    evt.preventDefault();
+
+    setMaxShowingAmount(maxShowingAmount + SHOWING_PORTION_AMOUNT);
+  };
+
+  useEffect(() => {
+    setMaxShowingAmount(SHOWING_PORTION_AMOUNT);
+  }, [currentGenre]);
 
   if (isLoadingFilms) {
     return <LoadingScreen />;
   }
+
 
   return (
     <>
@@ -72,11 +87,13 @@ const Main = () => {
 
           <GenreFilter genres={genres} />
 
-          <MoviesList films={filteredFilms} />
+          <MoviesList films={shownFilms} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {maxShowingAmount < filteredFilms.length &&
+            <div className="catalog__more">
+              <button onClick={handleShowMoreClick} className="catalog__button" type="button">Show more</button>
+            </div>
+          }
         </section>
 
         <Footer isWithOutLink />
