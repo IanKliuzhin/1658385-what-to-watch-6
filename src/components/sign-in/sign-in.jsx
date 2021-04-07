@@ -11,7 +11,7 @@ const SignIn = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
