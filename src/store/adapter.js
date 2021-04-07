@@ -11,17 +11,25 @@ const getRateLevel = (rate) => {
   return `Bad`;
 };
 
+const MUNUTES_IN_HOUR = 60;
+const converRunTime = (runTimeInMinutes) => {
+  const hours = Math.floor(runTimeInMinutes / MUNUTES_IN_HOUR);
+  const minutes = runTimeInMinutes - hours * MUNUTES_IN_HOUR;
+  return `${hours}h${minutes > 0 ? ` ${minutes}m` : ``}`;
+};
+
 export const adaptToClient = (film) => {
   return {
     id: film.id,
     title: film.name,
     genre: film.genre,
-    year: film.released,
+    released: film.released,
     bg: film.background_image,
     poster: film.poster_image,
     description: film.description,
     director: film.director,
-    starring: film.starring.join(`, `),
+    starring: film.starring,
+    runTime: converRunTime(film.run_time),
     rating: {
       rate: film.rating,
       level: getRateLevel(film.rating),

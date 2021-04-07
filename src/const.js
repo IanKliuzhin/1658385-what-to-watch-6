@@ -4,7 +4,8 @@ export const MAX_RATE = 10;
 
 export const APIRoute = {
   FILMS: `/films`,
-  LOGIN: `/login`
+  LOGIN: `/login`,
+  COMENTS: `/comments`
 };
 
 export const AuthorizationStatus = {

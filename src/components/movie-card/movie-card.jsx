@@ -1,26 +1,63 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import MoviesList from '../movies-list/movies-list';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {TabName} from '../../const';
 import Tabs from '../tabs/tabs';
+import MovieOverview from '../../movie-overview/movie-overview';
+import MovieDetails from '../movie-details/movie-details';
+import MovieReviews from '../movie-reviews/movie-reviews';
+import {fetchFilm, fetchComments} from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 export const MovieCard = () => {
   const {films} = useSelector((state) => state.CATALOG);
+  const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
+  const dispatch = useDispatch();
   const {id} = useParams();
   const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
-  const {title, bg, genre, year, poster, rating, description, relatedIds} = film;
-  const {rate, level, amount} = rating || {};
+  const {title, bg, genre, released, poster, rating, description, director, starring, relatedIds, runTime, comments} = film;
+
+  useEffect(() => {
+    if (isLoadingFilms) {
+      dispatch(fetchFilm(id));
+    }
+  }, [isLoadingFilms, id]);
+
+  useEffect(() => {
+    if (!isLoadingFilms && !comments) {
+      dispatch(fetchComments(id));
+    }
+  }, [comments, isLoadingFilms, id]);
+
   const relatedFilms = relatedIds && relatedIds.length ? relatedIds.map((relatedId) => films.find((filmToCheck) => filmToCheck.id === relatedId)) : [];
-  const [activeTabName, setActiveTabName] = useState(Object.values(TabName)[0]);
+  const [activeTabName, setActiveTabName] = useState(TabName.OVERVIEW);
   const history = useHistory();
   const onAddReviewClick = (evt) => {
     evt.preventDefault();
 
     history.push(`/films/${id}/review`);
   };
+
+  const getInfoComponent = () => {
+    switch (activeTabName) {
+      case TabName.OVERVIEW:
+        return <MovieOverview rating={rating} description={description} director={director} starring={starring} />;
+      case TabName.DETAILS:
+        return <MovieDetails director={director} starring={starring} runTime={runTime} genre={genre} released={released} />;
+      case TabName.REVIEWS:
+        return <MovieReviews comments={comments}/>;
+      default:
+        return null;
+    }
+  };
+
+  if (isLoadingFilms) {
+    return <LoadingScreen />;
+  }
+
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -38,7 +75,7 @@ export const MovieCard = () => {
               <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -69,17 +106,7 @@ export const MovieCard = () => {
             <div className="movie-card__desc">
               <Tabs activeTabName={activeTabName} setActiveTabName={setActiveTabName} />
 
-              <div className="movie-rating">
-                <div className="movie-rating__score">{rate}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{level}</span>
-                  <span className="movie-rating__count">{amount} ratings</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                {description}
-              </div>
+              {getInfoComponent()}
             </div>
           </div>
         </div>

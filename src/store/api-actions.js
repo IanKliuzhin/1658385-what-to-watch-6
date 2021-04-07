@@ -1,6 +1,7 @@
 import {APIRoute} from "../const";
 import {setIsLoadingFilms, setFilms, setAuthorizationStatus} from "./action";
 import {adaptToClient} from "./adapter";
+import {NameSpace} from "./root-reducer";
 
 export const fetchFilms = () => (dispatch, _getState, api) => {
   dispatch(setIsLoadingFilms(true));
@@ -8,6 +9,28 @@ export const fetchFilms = () => (dispatch, _getState, api) => {
     .then(({data}) => {
       dispatch(setFilms(data.map(adaptToClient)));
       dispatch(setIsLoadingFilms(false));
+    });
+};
+
+export const fetchFilm = (id) => (dispatch, _getState, api) => {
+  dispatch(setIsLoadingFilms(true));
+  api.get(`${APIRoute.FILMS}/${id}`)
+    .then(({data}) => {
+      dispatch(setFilms(
+          [
+            adaptToClient(data),
+          ]
+      ));
+      dispatch(setIsLoadingFilms(false));
+    });
+};
+
+export const fetchComments = (filmId) => (dispatch, getState, api) => {
+  api.get(`${APIRoute.COMENTS}/${filmId}`)
+    .then(({data}) => {
+      const {films} = getState()[NameSpace.CATALOG];
+      const filmToAddComments = films.find((film) => String(film.id) === String(filmId));
+      filmToAddComments.comments = data;
     });
 };
 
