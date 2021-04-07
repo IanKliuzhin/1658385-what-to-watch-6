@@ -1,7 +1,8 @@
 import {ActionType} from "../action";
 
 const initialState = {
-  isLoadingFilms: true
+  isLoadingFilms: true,
+  isPostingComment: false
 };
 
 const appState = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const appState = (state = initialState, action) => {
       return {
         ...state,
         isLoadingFilms: action.payload
+      };
+    case ActionType.SET_IS_POSTING_COMMENT:
+      return {
+        ...state,
+        isPostingComment: action.payload
       };
   }
   return state;

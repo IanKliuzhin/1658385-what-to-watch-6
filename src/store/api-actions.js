@@ -1,5 +1,5 @@
 import {APIRoute} from "../const";
-import {setIsLoadingFilms, setFilms, setAuthorizationStatus} from "./action";
+import {setIsLoadingFilms, setFilms, setAuthorizationStatus, setIsPostingComment} from "./action";
 import {adaptToClient} from "./adapter";
 import {NameSpace} from "./root-reducer";
 
@@ -25,7 +25,7 @@ export const fetchFilm = (id) => (dispatch, _getState, api) => {
     });
 };
 
-export const fetchComments = (filmId) => (dispatch, getState, api) => {
+export const fetchComments = (filmId) => (_dispatch, getState, api) => {
   api.get(`${APIRoute.COMENTS}/${filmId}`)
     .then(({data}) => {
       const {films} = getState()[NameSpace.CATALOG];
@@ -43,5 +43,17 @@ export const login = ({email, password}) => (dispatch, _getState, api) => {
 export const checkAuth = () => (dispatch, _getState, api) => {
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(setAuthorizationStatus(true)))
+    .catch(() => {});
+};
+
+export const postComment = (filmId, rating, comment) => (dispatch, getState, api) => {
+  dispatch(setIsPostingComment(true));
+  api.post(`${APIRoute.COMENTS}/${filmId}`, {rating, comment})
+    .then(({data}) => {
+      dispatch(setIsPostingComment(false));
+      const {films} = getState()[NameSpace.CATALOG];
+      const filmToAddComments = films.find((film) => String(film.id) === String(filmId));
+      filmToAddComments.comments = data;
+    })
     .catch(() => {});
 };

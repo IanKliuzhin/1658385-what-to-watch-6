@@ -38,7 +38,7 @@ export const AddReview = () => {
       </div>
 
       <div className="add-review">
-        <ReviewForm />
+        <ReviewForm id={id} />
       </div>
 
     </section>
