@@ -36,6 +36,7 @@ export const adaptToClient = (film) => {
       amount: film.scores_count
     },
     src: film.video_link,
+    isFavorite: film.is_favorite,
     previewSrc: film.preview_video_link
   };
 };

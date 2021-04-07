@@ -7,12 +7,11 @@ import MovieCard from '../movie-card/movie-card';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
-import {favoriteIdsType} from '../../types';
 import {useSelector} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 
-const App = ({favoriteIds}) => {
+const App = () => {
   const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
   return <BrowserRouter>
     {isLoadingFilms ? <LoadingScreen /> :
@@ -23,7 +22,7 @@ const App = ({favoriteIds}) => {
         <PrivateRoute
           exact
           path="/mylist"
-          render={() => <MyList favoriteIds={favoriteIds} />}
+          render={() => <MyList />}
         />
         <PrivateRoute
           exact
@@ -45,10 +44,6 @@ const App = ({favoriteIds}) => {
       </Switch>
     }
   </BrowserRouter>;
-};
-
-App.propTypes = {
-  favoriteIds: favoriteIdsType,
 };
 
 export default App;

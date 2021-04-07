@@ -7,6 +7,7 @@ export const ActionType = {
   SET_AUTHORIZATION_STATUS: `user/setAuth`,
   SET_IS_POSTING_COMMENT: `appState/setIsPostingComment`,
   SET_PROMO: `catalog/setPromo`,
+  SET_FAVORITES: `user/setFavoriteIds`,
 };
 
 export const changeGenre = (genre) => ({
@@ -22,6 +23,11 @@ export const setFilms = (films) => ({
 export const setPromoFilmId = (id) => ({
   type: ActionType.SET_PROMO,
   payload: id
+});
+
+export const setFavoriteIds = (ids) => ({
+  type: ActionType.SET_FAVORITES,
+  payload: ids
 });
 
 export const setIsLoadingFilms = (isLoading) => ({

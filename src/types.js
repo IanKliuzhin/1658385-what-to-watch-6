@@ -32,5 +32,3 @@ export const filmType = PropTypes.shape({
 });
 
 export const filmsType = PropTypes.arrayOf(filmType).isRequired;
-
-export const favoriteIdsType = PropTypes.arrayOf(PropTypes.number).isRequired;

@@ -10,7 +10,8 @@ export const APIRoute = {
   FILMS: `/films`,
   PROMO: `/films/promo`,
   LOGIN: `/login`,
-  COMENTS: `/comments`
+  COMENTS: `/comments`,
+  FAVORITE: `/favorite`,
 };
 
 export const AuthorizationStatus = {

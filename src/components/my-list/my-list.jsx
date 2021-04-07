@@ -1,12 +1,12 @@
 import React from 'react';
-import {favoriteIdsType} from '../../types';
 import MoviesList from '../movies-list/movies-list';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import {useSelector} from 'react-redux';
 
-const MyList = ({favoriteIds}) => {
+const MyList = () => {
   const {films} = useSelector((state) => state.CATALOG);
+  const {favoriteIds} = useSelector((state) => state.USER);
   const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
   return (
     <div className="user-page">
@@ -26,10 +26,6 @@ const MyList = ({favoriteIds}) => {
       <Footer />
     </div>
   );
-};
-
-MyList.propTypes = {
-  favoriteIds: favoriteIdsType,
 };
 
 export default MyList;

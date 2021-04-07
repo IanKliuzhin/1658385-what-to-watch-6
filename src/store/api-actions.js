@@ -1,5 +1,5 @@
 import {APIRoute} from "../const";
-import {setIsLoadingFilms, setFilms, setAuthorizationStatus, setIsPostingComment, setPromoFilmId} from "./action";
+import {setIsLoadingFilms, setFilms, setFavoriteIds, setAuthorizationStatus, setIsPostingComment, setPromoFilmId} from "./action";
 import {adaptToClient} from "./adapter";
 import {NameSpace} from "./root-reducer";
 
@@ -30,6 +30,33 @@ export const fetchPromoId = () => (dispatch, _getState, api) => {
     .then(({data}) => {
       dispatch(setPromoFilmId(data.id));
     });
+};
+
+export const fetchFavorites = () => (dispatch, _getState, api) => {
+  api.get(APIRoute.FAVORITE)
+    .then(({data}) => {
+      dispatch(setFavoriteIds(data.map((film) => film.id)));
+    });
+};
+
+export const toggleFavorite = (id, isFavorite) => (dispatch, getState, api) => {
+  api.post(`${APIRoute.FAVORITE}/${id}/${isFavorite ? 1 : 0}`)
+    .then(({data}) => {
+      const {favoriteIds} = getState()[NameSpace.USER];
+      const newFavoriteIds = isFavorite ? favoriteIds.slice().concat(id) : favoriteIds.slice().filter((idToCheck) => idToCheck !== id);
+
+      const {films} = getState()[NameSpace.CATALOG];
+      const filmIndex = films.findIndex((filmToCheck) => filmToCheck.id === id);
+      const newFilms = [
+        ...films.slice(0, filmIndex),
+        adaptToClient(data),
+        ...films.slice(filmIndex + 1),
+      ];
+
+      dispatch(setFilms(newFilms));
+      dispatch(setFavoriteIds(newFavoriteIds));
+    });
+
 };
 
 export const fetchComments = (filmId) => (_dispatch, getState, api) => {

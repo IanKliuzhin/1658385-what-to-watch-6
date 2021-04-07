@@ -9,7 +9,7 @@ import Tabs from '../tabs/tabs';
 import MovieOverview from '../movie-overview/movie-overview';
 import MovieDetails from '../movie-details/movie-details';
 import MovieReviews from '../movie-reviews/movie-reviews';
-import {fetchComments} from '../../store/api-actions';
+import {fetchComments, toggleFavorite} from '../../store/api-actions';
 import {getRelatedFilms} from '../../helpers';
 import PageNotFound from '../page-not-found/page-not-found';
 
@@ -18,12 +18,13 @@ export const MovieCard = () => {
   const {authorizationStatus} = useSelector((state) => state.USER);
   const dispatch = useDispatch();
   const history = useHistory();
-  const {id} = useParams();
-  const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
+  let {id} = useParams();
+  id = parseInt(id, 10);
+  const film = films.length ? films.find((filmToCheck) => filmToCheck.id === id) : {};
   if (!film) {
     return <PageNotFound />;
   }
-  const {title, bg, genre, released, poster, rating, description, director, starring, runTime, comments} = film;
+  const {title, bg, genre, released, poster, rating, description, director, starring, runTime, comments, isFavorite} = film;
 
   useEffect(() => {
     if (!comments) {
@@ -31,12 +32,18 @@ export const MovieCard = () => {
     }
   }, [comments, id]);
 
-  const relatedFilms = getRelatedFilms(films.filter((filmToCheck) => String(filmToCheck.id) !== String(id)), genre);
+  const relatedFilms = getRelatedFilms(films.filter((filmToCheck) => filmToCheck.id !== id), genre);
   const [activeTabName, setActiveTabName] = useState(TabName.OVERVIEW);
   const onAddReviewClick = (evt) => {
     evt.preventDefault();
 
     history.push(`/films/${id}/review`);
+  };
+
+  const handleFavoriteClick = (evt) => {
+    evt.preventDefault();
+
+    dispatch(toggleFavorite(id, !isFavorite));
   };
 
   const getInfoComponent = () => {
@@ -79,9 +86,9 @@ export const MovieCard = () => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button className="btn btn--list movie-card__button" type="button" onClick={handleFavoriteClick}>
                   <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"></use>
+                    <use xlinkHref={isFavorite ? `#in-list` : `#add`}></use>
                   </svg>
                   <span>My list</span>
                 </button>

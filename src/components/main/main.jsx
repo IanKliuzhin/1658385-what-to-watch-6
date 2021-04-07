@@ -5,8 +5,9 @@ import {getAllGenres, getFilmsByGenre} from '../../helpers';
 import GenreFilter from '../genre-filter/genre-filter';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
+import {toggleFavorite} from '../../store/api-actions';
 
 const SHOWING_PORTION_AMOUNT = 8;
 
@@ -14,10 +15,10 @@ const Main = () => {
   const {films, currentGenre, promoFilmId} = useSelector((state) => state.CATALOG);
   const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
   const [maxShowingAmount, setMaxShowingAmount] = useState(SHOWING_PORTION_AMOUNT);
-
+  const dispatch = useDispatch();
   const history = useHistory();
   const promoFilm = films.length > 0 && promoFilmId ? films.find((film) => String(film.id) === String(promoFilmId)) : {};
-  const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
+  const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear, isFavorite: isPromoFavorite} = promoFilm;
   const genres = getAllGenres(films);
   const filteredFilms = getFilmsByGenre(films, currentGenre);
   const shownFilms = filteredFilms.slice(0, maxShowingAmount);
@@ -36,6 +37,11 @@ const Main = () => {
     return <LoadingScreen />;
   }
 
+  const handlePromoFavoritClick = (evt) => {
+    evt.preventDefault();
+
+    dispatch(toggleFavorite(promoId, !isPromoFavorite));
+  };
 
   return (
     <>
@@ -68,9 +74,9 @@ const Main = () => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button className="btn btn--list movie-card__button" type="button" onClick={handlePromoFavoritClick}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref={isPromoFavorite ? `#in-list` : `#add`}></use>
                   </svg>
                   <span>My list</span>
                 </button>
