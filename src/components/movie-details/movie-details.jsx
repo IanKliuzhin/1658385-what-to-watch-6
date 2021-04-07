@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 const MovieDetails = ({director, starring, runTime, genre, released}) => {
@@ -13,7 +13,9 @@ const MovieDetails = ({director, starring, runTime, genre, released}) => {
           <strong className="movie-card__details-name">Starring</strong>
           <span className="movie-card__details-value">
             {starring.map((actor, index) => (
-              <>{actor}{index !== starring.length - 1 && `,`}<br /></>
+              <Fragment key={actor}>
+                {actor}{index !== starring.length - 1 && `,`}<br />
+              </Fragment>
             ))}
           </span>
         </p>
