@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import MoviesList from '../movies-list/movies-list';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import {useSelector} from 'react-redux';
+import {TabName} from '../../const';
+import Tabs from '../tabs/tabs';
 
 export const MovieCard = () => {
   const {films} = useSelector((state) => state.CATALOG);
-  const history = useHistory();
   const {id} = useParams();
   const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
   const {title, bg, genre, year, poster, rating, description, relatedIds} = film;
   const {rate, level, amount} = rating || {};
   const relatedFilms = relatedIds && relatedIds.length ? relatedIds.map((relatedId) => films.find((filmToCheck) => filmToCheck.id === relatedId)) : [];
+  const [activeTabName, setActiveTabName] = useState(Object.values(TabName)[0]);
+  const history = useHistory();
   const onAddReviewClick = (evt) => {
     evt.preventDefault();
 
@@ -64,19 +67,7 @@ export const MovieCard = () => {
             </div>
 
             <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+              <Tabs activeTabName={activeTabName} setActiveTabName={setActiveTabName} />
 
               <div className="movie-rating">
                 <div className="movie-rating__score">{rate}</div>
