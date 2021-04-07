@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {login} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../const';
-import {useHistory, useDispatch} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
@@ -11,10 +11,12 @@ const SignIn = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  const dispatch = useDispatch()
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    useDispatch(login({
+    dispatch(login({
       email: emailRef.current.value,
       password: passwordRef.current.value
     }));
