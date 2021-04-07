@@ -11,6 +11,11 @@ export const MovieCard = ({films}) => {
   const {title, bg, genre, year, poster, rating, description, relatedIds} = film;
   const {rate, level, amount} = rating || {};
   const relatedFilms = relatedIds && relatedIds.length ? relatedIds.map((relatedId) => films.find((filmToCheck) => filmToCheck.id === relatedId)) : [];
+  const onAddReviewClick = (evt) => {
+    evt.preventDefault();
+
+    history.push(`/films/${id}/review`);
+  };
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -58,7 +63,7 @@ export const MovieCard = ({films}) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href={`/films/${id}/review`} className="btn movie-card__button">Add review</a>
+                <a href={`/films/${id}/review`} className="btn movie-card__button" onClick={onAddReviewClick}>Add review</a>
               </div>
             </div>
           </div>

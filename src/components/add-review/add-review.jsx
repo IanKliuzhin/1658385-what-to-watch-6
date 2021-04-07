@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 
 export const AddReview = ({films}) => {
   const {id} = useParams();
-  const film = films.find((filmToCheck) => filmToCheck.id === id);
+  const film = films.find((filmToCheck) => String(filmToCheck.id) === id);
   const {title, bg, poster} = film;
 
   return (

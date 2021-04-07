@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {filmType} from '../../types';
 import {useHistory} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
@@ -17,6 +17,12 @@ const SmallMovieCard = ({film}) => {
     window.clearTimeout(timer);
     setIsPreviewPlaying(false);
   };
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [timer]);
+
   return (
     <article className="small-movie-card catalog__movies-card" onClick={() => history.push(`/films/${id}`)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="small-movie-card__image">
