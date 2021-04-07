@@ -6,7 +6,7 @@ import Footer from '../footer/footer';
 import {useSelector, useDispatch} from 'react-redux';
 import {TabName, AuthorizationStatus} from '../../const';
 import Tabs from '../tabs/tabs';
-import MovieOverview from '../../movie-overview/movie-overview';
+import MovieOverview from '../movie-overview/movie-overview';
 import MovieDetails from '../movie-details/movie-details';
 import MovieReviews from '../movie-reviews/movie-reviews';
 import {fetchComments} from '../../store/api-actions';
