@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useHistory} from 'react-router-dom';
 import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
@@ -6,18 +6,12 @@ import {getAllGenres, getFilmsByGenre} from '../../helpers';
 import GenreFilter from '../genre-filter/genre-filter';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import {useSelector, useDispatch} from 'react-redux';
-import {fetchFilms} from '../../store/api-actions';
+import {useSelector} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 const Main = () => {
-  const dispatch = useDispatch();
   const {films, currentGenre} = useSelector((state) => state.CATALOG);
   const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
-
-  useEffect(() => {
-    dispatch(fetchFilms());
-  }, []);
 
   const history = useHistory();
   const promoFilm = films.length > 0 ? films.find((film) => film.id === PROMO_MOVIE_ID) : {};

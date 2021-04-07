@@ -9,28 +9,20 @@ import Tabs from '../tabs/tabs';
 import MovieOverview from '../../movie-overview/movie-overview';
 import MovieDetails from '../movie-details/movie-details';
 import MovieReviews from '../movie-reviews/movie-reviews';
-import {fetchFilm, fetchComments} from '../../store/api-actions';
-import LoadingScreen from '../loading-screen/loading-screen';
+import {fetchComments} from '../../store/api-actions';
 
 export const MovieCard = () => {
   const {films} = useSelector((state) => state.CATALOG);
-  const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
   const dispatch = useDispatch();
   const {id} = useParams();
   const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
   const {title, bg, genre, released, poster, rating, description, director, starring, relatedIds, runTime, comments} = film;
 
   useEffect(() => {
-    if (isLoadingFilms) {
-      dispatch(fetchFilm(id));
-    }
-  }, [isLoadingFilms, id]);
-
-  useEffect(() => {
-    if (!isLoadingFilms && !comments) {
+    if (!comments) {
       dispatch(fetchComments(id));
     }
-  }, [comments, isLoadingFilms, id]);
+  }, [comments, id]);
 
   const relatedFilms = relatedIds && relatedIds.length ? relatedIds.map((relatedId) => films.find((filmToCheck) => filmToCheck.id === relatedId)) : [];
   const [activeTabName, setActiveTabName] = useState(TabName.OVERVIEW);
@@ -53,10 +45,6 @@ export const MovieCard = () => {
         return null;
     }
   };
-
-  if (isLoadingFilms) {
-    return <LoadingScreen />;
-  }
 
   return (
     <>
