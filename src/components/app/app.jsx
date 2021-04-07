@@ -52,8 +52,8 @@ App.propTypes = {
   isLoadingFilms: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  isLoadingFilms: state.isLoadingFilms
+const mapStateToProps = ({APP_STATE}) => ({
+  isLoadingFilms: APP_STATE.isLoadingFilms
 });
 
 export default connect(mapStateToProps, null)(App);

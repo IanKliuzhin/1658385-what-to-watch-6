@@ -3,7 +3,7 @@ import {AuthorizationStatus} from "../const";
 export const ActionType = {
   CHANGE_GENRE: `catalog/changeGenre`,
   SET_FILMS: `catalog/setFilms`,
-  SET_IS_LOADING_FILMS: `app/setIsLoadingFilms`,
+  SET_IS_LOADING_FILMS: `appState/setIsLoadingFilms`,
   SET_AUTHORIZATION_STATUS: `user/setAuth`
 };
 
@@ -26,4 +26,3 @@ export const setAuthorizationStatus = (isAuthorized) => ({
   type: ActionType.SET_AUTHORIZATION_STATUS,
   payload: isAuthorized ? AuthorizationStatus.AUTH : AuthorizationStatus.NO_AUTH
 });
-

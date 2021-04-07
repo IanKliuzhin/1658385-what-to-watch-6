@@ -4,7 +4,7 @@ import App from './components/app/app';
 import favorites from './mocks/my-films';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
-import {reducer} from './store/reducer';
+import rootReducer from './store/root-reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {createAPI} from './services/api';
 import thunk from 'redux-thunk';
@@ -17,7 +17,7 @@ const api = createAPI(
 );
 
 const store = createStore(
-    reducer,
+    rootReducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api)
         )

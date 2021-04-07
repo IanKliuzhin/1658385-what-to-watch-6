@@ -84,9 +84,9 @@ Main.propTypes = {
   currentGenre: PropTypes.string.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-  currentGenre: state.currentGenre
+const mapStateToProps = ({CATALOG}) => ({
+  films: CATALOG.films,
+  currentGenre: CATALOG.currentGenre
 });
 
 export default connect(mapStateToProps, null)(Main);

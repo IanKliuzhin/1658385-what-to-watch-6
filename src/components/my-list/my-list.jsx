@@ -32,8 +32,8 @@ MyList.propTypes = {
   favoriteIds: favoriteIdsType,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
+const mapStateToProps = ({CATALOG}) => ({
+  films: CATALOG.films,
 });
 
 export default connect(mapStateToProps, null)(MyList);

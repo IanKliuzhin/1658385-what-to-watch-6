@@ -27,8 +27,8 @@ GenreFilter.propTypes = {
   onChangeGenre: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre
+const mapStateToProps = ({CATALOG}) => ({
+  currentGenre: CATALOG.currentGenre
 });
 
 const mapDispatchToProps = (dispatch) => ({

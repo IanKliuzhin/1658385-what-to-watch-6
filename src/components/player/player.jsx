@@ -49,8 +49,8 @@ Player.propTypes = {
   films: filmsType
 };
 
-const mapStateToProps = (state) => ({
-  films: state.films,
+const mapStateToProps = ({CATALOG}) => ({
+  films: CATALOG.films,
 });
 
 export default connect(mapStateToProps, null)(Player);
