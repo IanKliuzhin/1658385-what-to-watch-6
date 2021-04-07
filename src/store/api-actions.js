@@ -1,24 +1,24 @@
 import {APIRoute} from "../const";
-import {ActionCreator} from "./action";
+import {setIsLoadingFilms, setFilms, setAuthorizationStatus} from "./action";
 import {adaptToClient} from "./adapter";
 
 export const fetchFilms = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.setIsLoadingFilms(true));
+  dispatch(setIsLoadingFilms(true));
   api.get(APIRoute.FILMS)
     .then(({data}) => {
-      dispatch(ActionCreator.setFilms(data.map(adaptToClient)));
-      dispatch(ActionCreator.setIsLoadingFilms(false));
+      dispatch(setFilms(data.map(adaptToClient)));
+      dispatch(setIsLoadingFilms(false));
     });
 };
 
 export const login = ({email, password}) => (dispatch, _getState, api) => {
   api.post(APIRoute.LOGIN, {email, password})
-    .then(() => dispatch(ActionCreator.setAuthorizationStatus(true)))
+    .then(() => dispatch(setAuthorizationStatus(true)))
     .catch(() => {});
 };
 
 export const checkAuth = () => (dispatch, _getState, api) => {
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.setAuthorizationStatus(true)))
+    .then(() => dispatch(setAuthorizationStatus(true)))
     .catch(() => {});
 };

@@ -7,21 +7,23 @@ export const ActionType = {
   SET_AUTHORIZATION_STATUS: `user/setAuth`
 };
 
-export const ActionCreator = {
-  changeGenre: (genre) => ({
-    type: ActionType.CHANGE_GENRE,
-    payload: genre
-  }),
-  setFilms: (films) => ({
-    type: ActionType.SET_FILMS,
-    payload: films
-  }),
-  setIsLoadingFilms: (isLoading) => ({
-    type: ActionType.SET_IS_LOADING_FILMS,
-    payload: isLoading
-  }),
-  setAuthorizationStatus: (isAuthorized) => ({
-    type: ActionType.SET_AUTHORIZATION_STATUS,
-    payload: isAuthorized ? AuthorizationStatus.AUTH : AuthorizationStatus.NO_AUTH
-  })
-};
+export const changeGenre = (genre) => ({
+  type: ActionType.CHANGE_GENRE,
+  payload: genre
+});
+
+export const setFilms = (films) => ({
+  type: ActionType.SET_FILMS,
+  payload: films
+});
+
+export const setIsLoadingFilms = (isLoading) => ({
+  type: ActionType.SET_IS_LOADING_FILMS,
+  payload: isLoading
+});
+
+export const setAuthorizationStatus = (isAuthorized) => ({
+  type: ActionType.SET_AUTHORIZATION_STATUS,
+  payload: isAuthorized ? AuthorizationStatus.AUTH : AuthorizationStatus.NO_AUTH
+});
+

@@ -9,11 +9,11 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import {createAPI} from './services/api';
 import thunk from 'redux-thunk';
 import {fetchFilms, checkAuth} from './store/api-actions';
-import {ActionCreator} from './store/action';
+import {setAuthorizationStatus} from './store/action';
 
 
 const api = createAPI(
-    () => store.dispatch(ActionCreator.setAuthorizationStatus(false))
+    () => store.dispatch(setAuthorizationStatus(false))
 );
 
 const store = createStore(

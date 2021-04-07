@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/action';
+import {changeGenre} from '../../store/action';
 import {connect} from 'react-redux';
 
-export const GenreFilter = ({genres, currentGenre, changeGenre}) => {
+export const GenreFilter = ({genres, currentGenre, onChangeGenre}) => {
   const baseClass = `catalog__genres-item`;
   const handleClickOnGenre = (genre) => (e) => {
     e.preventDefault();
     e.nativeEvent.preventDefault();
-    changeGenre(genre);
+    onChangeGenre(genre);
   };
   return (
     <ul className="catalog__genres-list">
@@ -24,7 +24,7 @@ export const GenreFilter = ({genres, currentGenre, changeGenre}) => {
 GenreFilter.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentGenre: PropTypes.string.isRequired,
-  changeGenre: PropTypes.func.isRequired
+  onChangeGenre: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -32,8 +32,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeGenre(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
+  onChangeGenre(genre) {
+    dispatch(changeGenre(genre));
   }
 });
 
