@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {AuthorizationStatus} from '../../const';
+import {useHistory} from 'react-router-dom';
 
 const UserBlock = ({authorizationStatus}) => {
+  const history = useHistory();
   return (
     <div className="user-block">
       {authorizationStatus === AuthorizationStatus.AUTH ?
