@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Main from '../main/main';
 import SignIn from '../sign-in/sign-in';
@@ -8,42 +7,43 @@ import MovieCard from '../movie-card/movie-card';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
+import {useSelector} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
+import PrivateRoute from '../private-route/private-route';
 
-const App = (props) => {
+const App = () => {
+  const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
   return <BrowserRouter>
-    <Switch>
-      <Route exact path="/">
-        <Main promoMovieInfo={props.promoMovieInfo} />
-      </Route>
-      <Route exact path="/login">
-        <SignIn />
-      </Route>
-      <Route exact path="/mylist">
-        <MyList />
-      </Route>
-      <Route exact path="/films/:id/review">
-        <AddReview />
-      </Route>
-      <Route exact path="/films/:id">
-        <MovieCard />
-      </Route>
-      <Route exact path="/player/:id">
-        <Player />
-      </Route>
-      <Route>
-        <PageNotFound />
-      </Route>
-    </Switch>
+    {isLoadingFilms ? <LoadingScreen /> :
+      <Switch>
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <PrivateRoute
+          exact
+          path="/mylist"
+          render={() => <MyList />}
+        />
+        <PrivateRoute
+          exact
+          path="/films/:id/review"
+          render={() => <AddReview />}
+        />
+        <Route exact path="/films/:id">
+          <MovieCard />
+        </Route>
+        <Route exact path="/player/:id">
+          <Player />
+        </Route>
+        <Route exact path="/login">
+          <SignIn />
+        </Route>
+        <Route>
+          <PageNotFound />
+        </Route>
+      </Switch>
+    }
   </BrowserRouter>;
 };
 
-App.propTypes = {
-  promoMovieInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    meta: PropTypes.shape({
-      genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired
-    })
-  })
-};
 export default App;

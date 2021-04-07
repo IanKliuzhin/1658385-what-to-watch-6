@@ -1,61 +1,82 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import SmallMovieCard from '../small-movie-card/small-movie-card';
+import React, {useState, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
+import MoviesList from '../movies-list/movies-list';
+import {getAllGenres, getFilmsByGenre} from '../../helpers';
+import GenreFilter from '../genre-filter/genre-filter';
+import Header from '../header/header';
+import Footer from '../footer/footer';
+import {useSelector, useDispatch} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {toggleFavorite} from '../../store/api-actions';
 
-const INIT_CARDS_AMOUNT = 20;
+const SHOWING_PORTION_AMOUNT = 8;
 
-const Main = (props) => {
-  const {promoMovieInfo} = props;
-  const {title, meta} = promoMovieInfo;
-  const {genre, year} = meta;
+const Main = () => {
+  const {films, currentGenre, promoFilmId} = useSelector((state) => state.CATALOG);
+  const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
+  const [maxShowingAmount, setMaxShowingAmount] = useState(SHOWING_PORTION_AMOUNT);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const promoFilm = films.length > 0 && promoFilmId ? films.find((film) => String(film.id) === String(promoFilmId)) : {};
+  const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear, isFavorite: isPromoFavorite} = promoFilm;
+  const genres = getAllGenres(films);
+  const filteredFilms = getFilmsByGenre(films, currentGenre);
+  const shownFilms = filteredFilms.slice(0, maxShowingAmount);
+
+  const handleShowMoreClick = (evt) => {
+    evt.preventDefault();
+
+    setMaxShowingAmount(maxShowingAmount + SHOWING_PORTION_AMOUNT);
+  };
+
+  useEffect(() => {
+    setMaxShowingAmount(SHOWING_PORTION_AMOUNT);
+  }, [currentGenre]);
+
+  if (isLoadingFilms) {
+    return <LoadingScreen />;
+  }
+
+  const handlePromoFavoritClick = (evt) => {
+    evt.preventDefault();
+
+    dispatch(toggleFavorite(promoId, !isPromoFavorite));
+  };
+
   return (
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoFilm.bg} alt={promoFilm.title} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
-        </header>
+        <Header isWithOutLink additionalClass="movie-card__head" />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoFilm.poster} alt={`${promoFilm.title} poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{promoTitle}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__genre">{promoGenre}</span>
+                <span className="movie-card__year">{promoYear}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${promoId}`)}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
+                <button className="btn btn--list movie-card__button" type="button" onClick={handlePromoFavoritClick}>
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
+                    <use xlinkHref={isPromoFavorite ? `#in-list` : `#add`}></use>
                   </svg>
                   <span>My list</span>
                 </button>
@@ -69,74 +90,21 @@ const Main = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenreFilter genres={genres} />
 
-          <div className="catalog__movies-list">
-            {new Array(INIT_CARDS_AMOUNT).fill().map((_, index) => <SmallMovieCard key={`card-${index}`} />)}
-          </div>
+          <MoviesList films={shownFilms} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {maxShowingAmount < filteredFilms.length &&
+            <div className="catalog__more">
+              <button onClick={handleShowMoreClick} className="catalog__button" type="button">Show more</button>
+            </div>
+          }
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer isWithOutLink />
       </div>
     </>
   );
-};
-
-Main.propTypes = {
-  promoMovieInfo: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    meta: PropTypes.shape({
-      genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired
-    })
-  })
 };
 
 export default Main;
