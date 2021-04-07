@@ -2,6 +2,7 @@ import React from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import {filmsType} from '../../types';
 import MoviesList from '../movies-list/movies-list';
+import {connect} from 'react-redux';
 
 export const MovieCard = ({films}) => {
   const history = useHistory();
@@ -131,4 +132,8 @@ MovieCard.propTypes = {
   films: filmsType
 };
 
-export default MovieCard;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export default connect(mapStateToProps, null)(MovieCard);

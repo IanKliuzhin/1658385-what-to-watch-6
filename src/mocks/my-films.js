@@ -1,1 +1,1 @@
-export default [`gb`, `nc`, `pf`];
+export default [1, 2, 3];

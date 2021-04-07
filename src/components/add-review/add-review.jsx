@@ -2,6 +2,7 @@ import React from 'react';
 import {useParams} from 'react-router-dom';
 import {filmsType} from '../../types';
 import ReviewForm from '../review-form/review-form';
+import {connect} from 'react-redux';
 
 export const AddReview = ({films}) => {
   const {id} = useParams();
@@ -61,4 +62,8 @@ AddReview.propTypes = {
   films: filmsType
 };
 
-export default AddReview;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export default connect(mapStateToProps, null)(AddReview);

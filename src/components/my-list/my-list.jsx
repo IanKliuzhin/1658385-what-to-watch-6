@@ -1,8 +1,10 @@
 import React from 'react';
-import {filmsType} from '../../types';
+import {filmsType, favoriteIdsType} from '../../types';
 import MoviesList from '../movies-list/movies-list';
+import {connect} from 'react-redux';
 
-const MyList = ({films}) => {
+const MyList = ({films, favoriteIds}) => {
+  const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -27,7 +29,7 @@ const MyList = ({films}) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          <MoviesList films={films} />
+          <MoviesList films={favorites} />
 
         </div>
       </section>
@@ -50,7 +52,12 @@ const MyList = ({films}) => {
 };
 
 MyList.propTypes = {
-  films: filmsType
+  films: filmsType,
+  favoriteIds: favoriteIdsType,
 };
 
-export default MyList;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export default connect(mapStateToProps, null)(MyList);

@@ -1,14 +1,14 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 import {filmsType} from '../../types';
-import {PROMO_MOVIE_ID, AuthorizationStatus} from '../../const';
+import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
 import {getAllGenres, getFilmsByGenre} from '../../helpers';
 import GenreFilter from '../genre-filter/genre-filter';
+import UserBlock from '../user-block/user-block';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-
-const Main = ({films, currentGenre, authorizationStatus}) => {
+const Main = ({films, currentGenre}) => {
   const history = useHistory();
   const promoFilm = films.length > 0 ? films.find((film) => film.id === PROMO_MOVIE_ID) : {};
   const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
@@ -33,15 +33,7 @@ const Main = ({films, currentGenre, authorizationStatus}) => {
             </a>
           </div>
 
-          <div className="user-block">
-            {authorizationStatus === AuthorizationStatus.AUTH ?
-              <div className="user-block__avatar" onClick={() => history.push(`/mylist`)}>
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-              :
-              <a href={`/login`} className="user-block__link">Sign in</a>
-            }
-          </div>
+          <UserBlock />
         </header>
 
         <div className="movie-card__wrap">
@@ -109,13 +101,12 @@ const Main = ({films, currentGenre, authorizationStatus}) => {
 
 Main.propTypes = {
   films: filmsType,
-  currentGenre: PropTypes.string.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
+  currentGenre: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre,
-  authorizationStatus: state.authorizationStatus,
+  films: state.films,
+  currentGenre: state.currentGenre
 });
 
 export default connect(mapStateToProps, null)(Main);

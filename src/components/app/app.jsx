@@ -7,35 +7,34 @@ import MovieCard from '../movie-card/movie-card';
 import AddReview from '../add-review/add-review';
 import Player from '../player/player';
 import PageNotFound from '../page-not-found/page-not-found';
-import {filmsType, favoriteIdsType} from '../../types';
+import {favoriteIdsType} from '../../types';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 
-const App = ({films, favoriteIds, isLoadingFilms}) => {
-  const favorites = favoriteIds.map((id) => films.find((film) => film.id === id));
+const App = ({favoriteIds, isLoadingFilms}) => {
   return <BrowserRouter>
     {isLoadingFilms ? <LoadingScreen /> :
       <Switch>
         <Route exact path="/">
-          <Main films={films} />
+          <Main />
         </Route>
         <PrivateRoute
           exact
           path="/mylist"
-          render={() => <MyList films={favorites} />}
+          render={() => <MyList favoriteIds={favoriteIds} />}
         />
         <PrivateRoute
           exact
           path="/films/:id/review"
-          render={() => <AddReview films={films} />}
+          render={() => <AddReview />}
         />
         <Route exact path="/films/:id">
-          <MovieCard films={films} />
+          <MovieCard />
         </Route>
         <Route exact path="/player/:id">
-          <Player films={films} />
+          <Player />
         </Route>
         <Route exact path="/login">
           <SignIn />
@@ -49,13 +48,11 @@ const App = ({films, favoriteIds, isLoadingFilms}) => {
 };
 
 App.propTypes = {
-  films: filmsType,
   favoriteIds: favoriteIdsType,
   isLoadingFilms: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
   isLoadingFilms: state.isLoadingFilms
 });
 

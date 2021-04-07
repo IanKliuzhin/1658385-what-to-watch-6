@@ -1,6 +1,7 @@
 import React from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 import {filmsType} from '../../types';
+import {connect} from 'react-redux';
 
 const Player = ({films}) => {
   const history = useHistory();
@@ -48,4 +49,8 @@ Player.propTypes = {
   films: filmsType
 };
 
-export default Player;
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export default connect(mapStateToProps, null)(Player);
