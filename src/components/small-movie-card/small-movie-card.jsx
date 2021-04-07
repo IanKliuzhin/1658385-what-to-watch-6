@@ -26,7 +26,7 @@ const SmallMovieCard = ({film}) => {
   return (
     <article className="small-movie-card catalog__movies-card" onClick={() => history.push(`/films/${id}`)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="small-movie-card__image">
-        <VideoPlayer poster={bg} src={previewSrc} isPlaying={isPreviewPlaying} />
+        <VideoPlayer poster={bg} src={previewSrc} isPlaying={isPreviewPlaying} title={title}/>
       </div>
       <h3 className="small-movie-card__title">
         <a className="small-movie-card__link" href={`/films/${id}`}>{title}</a>
