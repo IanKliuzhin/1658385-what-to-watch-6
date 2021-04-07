@@ -1,5 +1,5 @@
 import {APIRoute} from "../const";
-import {setIsLoadingFilms, setFilms, setAuthorizationStatus, setIsPostingComment} from "./action";
+import {setIsLoadingFilms, setFilms, setAuthorizationStatus, setIsPostingComment, setPromoFilmId} from "./action";
 import {adaptToClient} from "./adapter";
 import {NameSpace} from "./root-reducer";
 
@@ -22,6 +22,13 @@ export const fetchFilm = (id) => (dispatch, _getState, api) => {
           ]
       ));
       dispatch(setIsLoadingFilms(false));
+    });
+};
+
+export const fetchPromoId = () => (dispatch, _getState, api) => {
+  api.get(APIRoute.PROMO)
+    .then(({data}) => {
+      dispatch(setPromoFilmId(data.id));
     });
 };
 

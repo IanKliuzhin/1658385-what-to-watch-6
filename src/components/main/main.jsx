@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
-import {PROMO_MOVIE_ID} from '../../const';
 import MoviesList from '../movies-list/movies-list';
 import {getAllGenres, getFilmsByGenre} from '../../helpers';
 import GenreFilter from '../genre-filter/genre-filter';
@@ -12,12 +11,12 @@ import LoadingScreen from '../loading-screen/loading-screen';
 const SHOWING_PORTION_AMOUNT = 8;
 
 const Main = () => {
-  const {films, currentGenre} = useSelector((state) => state.CATALOG);
+  const {films, currentGenre, promoFilmId} = useSelector((state) => state.CATALOG);
   const {isLoadingFilms} = useSelector((state) => state.APP_STATE);
   const [maxShowingAmount, setMaxShowingAmount] = useState(SHOWING_PORTION_AMOUNT);
 
   const history = useHistory();
-  const promoFilm = films.length > 0 ? films.find((film) => film.id === PROMO_MOVIE_ID) : {};
+  const promoFilm = films.length > 0 && promoFilmId ? films.find((film) => String(film.id) === String(promoFilmId)) : {};
   const {id: promoId, title: promoTitle, genre: promoGenre, year: promoYear} = promoFilm;
   const genres = getAllGenres(films);
   const filteredFilms = getFilmsByGenre(films, currentGenre);

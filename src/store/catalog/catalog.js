@@ -2,7 +2,8 @@ import {ActionType} from "../action";
 
 const initialState = {
   currentGenre: ``,
-  films: []
+  films: [],
+  promoFilmId: 0
 };
 
 const catalog = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const catalog = (state = initialState, action) => {
       return {
         ...state,
         films: action.payload
+      };
+    case ActionType.SET_PROMO:
+      return {
+        ...state,
+        promoFilmId: action.payload
       };
   }
   return state;

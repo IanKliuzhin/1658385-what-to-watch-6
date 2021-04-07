@@ -6,6 +6,7 @@ export const ActionType = {
   SET_IS_LOADING_FILMS: `appState/setIsLoadingFilms`,
   SET_AUTHORIZATION_STATUS: `user/setAuth`,
   SET_IS_POSTING_COMMENT: `appState/setIsPostingComment`,
+  SET_PROMO: `catalog/setPromo`,
 };
 
 export const changeGenre = (genre) => ({
@@ -16,6 +17,11 @@ export const changeGenre = (genre) => ({
 export const setFilms = (films) => ({
   type: ActionType.SET_FILMS,
   payload: films
+});
+
+export const setPromoFilmId = (id) => ({
+  type: ActionType.SET_PROMO,
+  payload: id
 });
 
 export const setIsLoadingFilms = (isLoading) => ({

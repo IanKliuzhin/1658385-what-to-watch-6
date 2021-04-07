@@ -8,7 +8,7 @@ import rootReducer from './store/root-reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {createAPI} from './services/api';
 import thunk from 'redux-thunk';
-import {fetchFilms, checkAuth} from './store/api-actions';
+import {fetchFilms, checkAuth, fetchPromoId} from './store/api-actions';
 import {setAuthorizationStatus} from './store/action';
 
 
@@ -25,6 +25,7 @@ const store = createStore(
 
 store.dispatch(fetchFilms());
 store.dispatch(checkAuth());
+store.dispatch(fetchPromoId());
 
 ReactDOM.render(
     <Provider store={store}>
