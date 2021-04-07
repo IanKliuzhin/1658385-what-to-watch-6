@@ -4,7 +4,7 @@ import MoviesList from '../movies-list/movies-list';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import {useSelector, useDispatch} from 'react-redux';
-import {TabName} from '../../const';
+import {TabName, AuthorizationStatus} from '../../const';
 import Tabs from '../tabs/tabs';
 import MovieOverview from '../../movie-overview/movie-overview';
 import MovieDetails from '../movie-details/movie-details';
@@ -15,6 +15,7 @@ import PageNotFound from '../page-not-found/page-not-found';
 
 export const MovieCard = () => {
   const {films} = useSelector((state) => state.CATALOG);
+  const {authorizationStatus} = useSelector((state) => state.USER);
   const dispatch = useDispatch();
   const history = useHistory();
   const {id} = useParams();
@@ -84,7 +85,7 @@ export const MovieCard = () => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href={`/films/${id}/review`} className="btn movie-card__button" onClick={onAddReviewClick}>Add review</a>
+                {authorizationStatus === AuthorizationStatus.AUTH && <a href={`/films/${id}/review`} className="btn movie-card__button" onClick={onAddReviewClick}>Add review</a>}
               </div>
             </div>
           </div>
