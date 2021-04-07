@@ -11,12 +11,17 @@ import MovieDetails from '../movie-details/movie-details';
 import MovieReviews from '../movie-reviews/movie-reviews';
 import {fetchComments} from '../../store/api-actions';
 import {getRelatedFilms} from '../../helpers';
+import PageNotFound from '../page-not-found/page-not-found';
 
 export const MovieCard = () => {
   const {films} = useSelector((state) => state.CATALOG);
   const dispatch = useDispatch();
+  const history = useHistory();
   const {id} = useParams();
   const film = films.length ? films.find((filmToCheck) => String(filmToCheck.id) === id) : {};
+  if (!film) {
+    return <PageNotFound />;
+  }
   const {title, bg, genre, released, poster, rating, description, director, starring, runTime, comments} = film;
 
   useEffect(() => {
@@ -27,7 +32,6 @@ export const MovieCard = () => {
 
   const relatedFilms = getRelatedFilms(films.filter((filmToCheck) => String(filmToCheck.id) !== String(id)), genre);
   const [activeTabName, setActiveTabName] = useState(TabName.OVERVIEW);
-  const history = useHistory();
   const onAddReviewClick = (evt) => {
     evt.preventDefault();
 
